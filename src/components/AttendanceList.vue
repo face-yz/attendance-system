@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-12 20:41:33
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-12-18 18:17:48
+ * @LastEditTime: 2019-12-18 18:29:44
  -->
 <template>
 	<div>
@@ -44,12 +44,9 @@
 				align="center"
 				width="200">
 				<template slot-scope="scope">
-					<el-tag v-for="(item, index) in scope.row.week" :key="index">
+					<span v-for="(item, index) in scope.row.week" :key="index">
 						{{ item }}
-					</el-tag>
-					<!-- <el-button
-						size="mini"
-						@click="handleEdit(scope.$index, scope.row)">Edit</el-button> -->
+					</span>
 				</template>
 			</el-table-column>
 			<el-table-column
@@ -104,8 +101,8 @@ export default class AttendanceList extends Vue {
 </script>
 
 <style lang="less" scoped>
-	.el-tag {
+	span {
+		display: inline-block;
 		margin-right: 5px;
-		margin-bottom: 5px;
 	}
 </style>

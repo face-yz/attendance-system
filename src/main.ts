@@ -4,7 +4,7 @@
  * @Github: https://github.com/Jensen02
  * @Date: 2019-09-15 21:59:24
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-12-18 18:08:59
+ * @LastEditTime: 2019-12-18 18:37:11
  */
 import Vue from 'vue';
 import VueRouter, { Route } from 'vue-router';
@@ -40,6 +40,7 @@ import {
 	Select,
 	Option,
 	Tag,
+	Drawer,
 } from 'element-ui';
 import App from './App.vue';
 import router from './router';
@@ -72,6 +73,7 @@ Vue.use(DatePicker);
 Vue.use(Select);
 Vue.use(Option);
 Vue.use(Tag);
+Vue.use(Drawer);
 
 declare module 'vue/types/vue' {
 	interface Vue {
