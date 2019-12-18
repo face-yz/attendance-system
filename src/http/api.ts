@@ -4,7 +4,7 @@
  * @Github: https://github.com/Jensen02
  * @Date: 2019-11-28 21:12:14
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-12-18 14:27:56
+ * @LastEditTime: 2019-12-18 16:29:08
  */
 import { httpGet, httpPost } from '@/http/http';
 import { LoginParam, Res, StudentInfo, AttendancePlan } from '@/interface';
@@ -46,5 +46,10 @@ export async function resetPassword(uId: string): Promise<Res> {
 
 export async function addAttendancePlan(param: AttendancePlan): Promise<Res> {
 	const res: Res = await httpPost('/api/v1/addPlan', param);
+	return res;
+}
+
+export async function getAttendancePlanList(): Promise<Res> {
+	const res: Res = await httpGet('/api/v1/selectAttendPlanList');
 	return res;
 }
