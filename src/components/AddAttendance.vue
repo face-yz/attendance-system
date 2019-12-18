@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-12 20:41:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-12-18 15:45:29
+ * @LastEditTime: 2019-12-18 16:29:50
  -->
 <template>
 	<div>
@@ -139,11 +139,8 @@ export default class AttendanceList extends Vue {
 	public submitForm(formName: string) {
 		(this.$refs[formName] as any).validate((valid: any) => {
 			if (valid) {
-				console.log('submit!');
-				console.log(this.ruleForm);
 				this.addAttendancePlan();
 			} else {
-				console.log('error submit!!');
 				return false;
 			}
 		});

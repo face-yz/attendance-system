@@ -4,50 +4,50 @@
  * @Author: Jensen
  * @Date: 2019-12-12 20:37:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-12-18 14:44:27
+ * @LastEditTime: 2019-12-18 16:05:57
  -->
 
 <template>
-   <div>
-      <el-table
-      :data="tableData"
-      border
-      stripe
-      style="width: 721px">
-      <el-table-column
-         prop="username"
-         label="姓名"
-         align="center"
-         width="180">
-      </el-table-column>
-      <el-table-column
-         prop="uId"
-         label="学号"
-         align="center"
-         width="180">
-      </el-table-column>
-      <el-table-column
-         prop="phone"
-         label="电话"
-         align="center"
-         width="180">
-      </el-table-column>
-      <el-table-column
-         label="操作"
-         align="center"
-         width="180">
-         <template slot-scope="scope">
-            <el-button
-							type="text"
-							@click="handleClick(scope.row)"
-							size="medium"
-						>
-							重置密码
-						</el-button>
-         </template>
-      </el-table-column>
-   </el-table>
-  </div>
+	<div>
+		<el-table
+			:data="tableData"
+			border
+			stripe
+			style="width: 721px">
+			<el-table-column
+				prop="username"
+				label="姓名"
+				align="center"
+				width="180">
+			</el-table-column>
+			<el-table-column
+				prop="uId"
+				label="学号"
+				align="center"
+				width="180">
+			</el-table-column>
+			<el-table-column
+				prop="phone"
+				label="电话"
+				align="center"
+				width="180">
+			</el-table-column>
+			<el-table-column
+				label="操作"
+				align="center"
+				width="180">
+				<template slot-scope="scope">
+					<el-button
+						type="text"
+						@click="handleClick(scope.row)"
+						size="medium"
+					>
+						重置密码
+					</el-button>
+				</template>
+			</el-table-column>
+		</el-table>
+	</div>
 </template>
 
 <script lang="ts">
