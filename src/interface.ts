@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-04 20:09:28
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-12-18 14:03:18
+ * @LastEditTime: 2019-12-18 17:55:45
  */
 
 export interface LoginParam {
@@ -39,5 +39,7 @@ export interface AttendancePlan {
 	endtime: string;
 	groupname: string;
 	marktime: string;
-	weekdays: number[];
+	weekdays ?: number[];
+	days ?: string;
+	week ?: string[];
 }
