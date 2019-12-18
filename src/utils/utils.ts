@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-05 20:15:26
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-12-18 14:50:24
+ * @LastEditTime: 2019-12-18 17:54:28
  */
 
 /**
@@ -41,4 +41,24 @@ export const dataURLtoFile = (dataurl: string, filename: string): any => {
  */
 export const setPageTitle = (title: string): void => {
 	document.title = title + ' - 大学生考勤系统';
+};
+
+/**
+ * @description: 星期字符串格式化
+ * @param {string} 星期字符串
+ * @return: 星期字符串数组
+ */
+export const setWeekDay = (dayStr: string): string[] => {
+	const weekdays: string[] = [];
+	const arrDay: string[] = dayStr.split('_');
+	arrDay.forEach((item: string) => {
+		switch (item) {
+			case '1': weekdays.push('星期一'); break;
+			case '2': weekdays.push('星期二'); break;
+			case '3': weekdays.push('星期三'); break;
+			case '4': weekdays.push('星期四'); break;
+			case '5': weekdays.push('星期五'); break;
+		}
+	});
+	return weekdays;
 };
