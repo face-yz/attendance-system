@@ -13,7 +13,7 @@ import { Res } from '@/interface';
 
 const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://120.27.246.207:8089' : 'http://120.27.246.207';
 
-// axios.defaults.timeout = 10000;
+axios.defaults.timeout = 10000;
 axios.defaults.baseURL = BASE_URL;
 
 axios.interceptors.request.use((config) => {
@@ -55,9 +55,6 @@ export const httpPost = (url: string, data: object = {}): Promise<Res> => {
 };
 
 export const uploadPost = (url: string, data: object = {}): Promise<Res> => {
-	// const file: any = data.img;
-	// const formdata: any = new FormData();
-	// formdata.append('file', file);
 	const config = {
 		headers: {
 			'Content-Type': 'multipart/form-data',
