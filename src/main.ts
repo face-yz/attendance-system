@@ -3,8 +3,8 @@
  * @Author: Jensen
  * @Github: https://github.com/Jensen02
  * @Date: 2019-09-15 21:59:24
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-12-18 18:37:11
+ * @LastEditors  : Please set LastEditors
+ * @LastEditTime : 2019-12-19 22:16:24
  */
 import Vue from 'vue';
 import VueRouter, { Route } from 'vue-router';
@@ -41,10 +41,13 @@ import {
 	Option,
 	Tag,
 	Drawer,
+	Upload,
+	Dialog,
 } from 'element-ui';
 import App from './App.vue';
 import router from './router';
 import store from '@/store/store';
+import lodash from 'lodash';
 
 Vue.use(Button);
 Vue.use(Row);
@@ -74,6 +77,8 @@ Vue.use(Select);
 Vue.use(Option);
 Vue.use(Tag);
 Vue.use(Drawer);
+Vue.use(Upload);
+Vue.use(Dialog);
 
 declare module 'vue/types/vue' {
 	interface Vue {
@@ -81,12 +86,14 @@ declare module 'vue/types/vue' {
 		$route: Route;
 		$message: ElMessage;
 		$messageBox: ElMessageBox;
+		_: typeof lodash;
 	}
 }
 
 Vue.config.productionTip = false;
 Vue.prototype.$message = Message;
 Vue.prototype.$messageBox = MessageBox;
+Vue.prototype['_'] = lodash;
 
 new Vue({
 	router,

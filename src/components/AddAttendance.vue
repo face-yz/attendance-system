@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-12 20:41:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-12-18 16:29:50
+ * @LastEditTime: 2019-12-18 18:54:48
  -->
 <template>
 	<div>
@@ -65,6 +65,7 @@
         <el-time-picker
 					value-format="HH:mm:ss"
 					placeholder="上课开始时间"
+					default-value="08:00:00"
 					v-model="ruleForm.marktime"
 					style="width: 100%;">
 				</el-time-picker>

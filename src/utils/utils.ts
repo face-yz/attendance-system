@@ -3,8 +3,8 @@
  * @GitHub: https://github.com/Jensen02
  * @Author: Jensen
  * @Date: 2019-12-05 20:15:26
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-12-18 17:54:28
+ * @LastEditors  : Please set LastEditors
+ * @LastEditTime : 2019-12-19 20:16:03
  */
 
 /**
@@ -62,3 +62,12 @@ export const setWeekDay = (dayStr: string): string[] => {
 	});
 	return weekdays;
 };
+
+export const strChange = (str: string): string => {
+	let result: string = '';
+	const temp: string[] = [];
+	temp.push(str.substr(0, 4), str.substr(7, 2), str.substr(12, 2));
+	result = temp.join('-');
+	return result;
+};
+

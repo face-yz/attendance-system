@@ -3,8 +3,8 @@
  * @Author: Jensen
  * @Github: https://github.com/Jensen02
  * @Date: 2019-11-28 21:12:06
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-12-18 14:51:23
+ * @LastEditors  : Please set LastEditors
+ * @LastEditTime : 2019-12-19 20:44:52
  */
 
 import axios from 'axios';
@@ -13,7 +13,7 @@ import { Res } from '@/interface';
 
 const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://120.27.246.207:8089' : 'http://120.27.246.207';
 
-axios.defaults.timeout = 5000;
+// axios.defaults.timeout = 10000;
 axios.defaults.baseURL = BASE_URL;
 
 axios.interceptors.request.use((config) => {
@@ -50,6 +50,26 @@ export const httpPost = (url: string, data: object = {}): Promise<Res> => {
 		})
 		.catch((error) => {
 			console.error('httpPost error: ', error);
+		});
+	});
+};
+
+export const uploadPost = (url: string, data: object = {}): Promise<Res> => {
+	// const file: any = data.img;
+	// const formdata: any = new FormData();
+	// formdata.append('file', file);
+	const config = {
+		headers: {
+			'Content-Type': 'multipart/form-data',
+		},
+	};
+	return new Promise((resolve, reject) => {
+		axios.post(url, data, config)
+		.then((res) => {
+			resolve(res.data);
+		})
+		.catch((error) => {
+			console.error('uploadPost error: ', error);
 		});
 	});
 };

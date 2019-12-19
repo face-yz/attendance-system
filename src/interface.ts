@@ -4,8 +4,10 @@
  * @Author: Jensen
  * @Date: 2019-12-04 20:09:28
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-12-18 17:55:45
+ * @LastEditTime: 2019-12-18 20:43:45
  */
+
+export type Func = () => void;
 
 export interface LoginParam {
 	username: string;

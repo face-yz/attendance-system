@@ -3,10 +3,10 @@
  * @Author: Jensen
  * @Github: https://github.com/Jensen02
  * @Date: 2019-11-28 21:12:14
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-12-18 16:29:08
+ * @LastEditors  : Please set LastEditors
+ * @LastEditTime : 2019-12-19 18:11:57
  */
-import { httpGet, httpPost } from '@/http/http';
+import { httpGet, httpPost, uploadPost } from '@/http/http';
 import { LoginParam, Res, StudentInfo, AttendancePlan } from '@/interface';
 
 /************* 登录 **************/
@@ -53,3 +53,9 @@ export async function getAttendancePlanList(): Promise<Res> {
 	const res: Res = await httpGet('/api/v1/selectAttendPlanList');
 	return res;
 }
+
+export async function loggingStudentInfo(param: any): Promise<Res> {
+	const res: Res = await uploadPost('/api/v1/addPlan/addPlanUser', param);
+	return res;
+}
+
