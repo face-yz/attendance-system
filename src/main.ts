@@ -4,7 +4,7 @@
  * @Github: https://github.com/Jensen02
  * @Date: 2019-09-15 21:59:24
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-19 22:16:24
+ * @LastEditTime : 2019-12-20 15:19:11
  */
 import Vue from 'vue';
 import VueRouter, { Route } from 'vue-router';
@@ -43,6 +43,8 @@ import {
 	Drawer,
 	Upload,
 	Dialog,
+	Tabs,
+	TabPane,
 } from 'element-ui';
 import App from './App.vue';
 import router from './router';
@@ -79,6 +81,8 @@ Vue.use(Tag);
 Vue.use(Drawer);
 Vue.use(Upload);
 Vue.use(Dialog);
+Vue.use(Tabs);
+Vue.use(TabPane);
 
 declare module 'vue/types/vue' {
 	interface Vue {

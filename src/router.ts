@@ -3,8 +3,8 @@
  * @Author: Jensen
  * @Github: https://github.com/Jensen02
  * @Date: 2019-11-28 21:21:04
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-12-18 14:49:14
+ * @LastEditors  : Please set LastEditors
+ * @LastEditTime : 2019-12-20 18:04:16
  */
 import Vue from 'vue';
 import Router, { Route, RouteConfig } from 'vue-router';
@@ -51,7 +51,7 @@ const router = new Router({
 			},
 			children: [
 				{
-					path: 'punch-card/:id',
+					path: 'punch-card',
 					name: 'punch-card',
 					component: () => import('@/components/PunchCard.vue'),
 					meta: {
@@ -60,7 +60,7 @@ const router = new Router({
 					},
 				},
 				{
-					path: 'look-attendance/:id',
+					path: 'look-attendance',
 					name: 'look-attendance',
 					component: () => import('@/components/LookAttendance.vue'),
 					meta: {
@@ -133,18 +133,18 @@ const router = new Router({
 	],
 });
 
-router.beforeEach((to: Route, from: Route, next) => {
-	if (to.matched.some((route) => route.meta.requireAuth)) {
-		if (!checkIsLogin()) {
-			next({
-				path: '/login',
-				query: {
-					redirect: to.fullPath,
-				},
-			});
-		}
-	}
-	next();
-});
+// router.beforeEach((to: Route, from: Route, next) => {
+// 	if (to.matched.some((route) => route.meta.requireAuth)) {
+// 		if (!checkIsLogin()) {
+// 			next({
+// 				path: '/login',
+// 				query: {
+// 					redirect: to.fullPath,
+// 				},
+// 			});
+// 		}
+// 	}
+// 	next();
+// });
 
 export default router;

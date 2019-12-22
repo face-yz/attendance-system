@@ -3,23 +3,23 @@
  * @GitHub: https://github.com/Jensen02
  * @Author: Jensen
  * @Date: 2019-12-04 20:09:28
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-12-18 20:43:45
+ * @LastEditors  : Please set LastEditors
+ * @LastEditTime : 2019-12-22 20:56:19
  */
 
 export type Func = () => void;
 
 export interface LoginParam {
-	username: string;
+	username ?: string;
 	password ?: string;
 	authCode ?: number;
+	uId ?: string;
 }
 
 export interface RuleForm {
 	userName: string;
 	password: string;
-	authCode: number;
-	resource: string;
+	authCode ?: number;
 }
 
 export interface Res {
@@ -44,4 +44,16 @@ export interface AttendancePlan {
 	weekdays ?: number[];
 	days ?: string;
 	week ?: string[];
+}
+
+export interface ApplyVacation {
+	uId: string;
+	username: string;
+	startdate: string;
+	enddate: string;
+	reason: string;
+}
+
+export interface AskForLeave {
+	uId: string;
 }

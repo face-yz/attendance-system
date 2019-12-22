@@ -3,8 +3,8 @@
  * @GitHub: https://github.com/Jensen02
  * @Author: Jensen
  * @Date: 2019-12-11 15:23:15
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-12-18 14:51:58
+ * @LastEditors  : Please set LastEditors
+ * @LastEditTime : 2019-12-20 20:46:01
  -->
 
 <template>
@@ -23,7 +23,7 @@
 						<span>上课打卡</span>
 					</template>
 					<el-menu-item-group>
-						<el-menu-item :index="'/student/punch-card/:'+this.$route.params.id">打卡签到</el-menu-item>
+						<el-menu-item :index="'/student/punch-card'">打卡签到</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>
 				<el-submenu index="2">
@@ -32,7 +32,7 @@
 						<span>信息查询</span>
 					</template>
 					<el-menu-item-group>
-						<el-menu-item :index="'/look-attendance/student/:'+this.$route.params.id">查询考勤</el-menu-item>
+						<el-menu-item :index="'/student/look-attendance'">查询考勤</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>
 			</el-menu>
@@ -75,7 +75,12 @@ import { Component, Vue } from 'vue-property-decorator';
 
 @Component({})
 export default class NavSide extends Vue {
-	private role: string = this.$store.state.role;
+	// private role: string = this.$store.state.role;
+	get role() {
+		if (this.$store.state.role.length) {
+			return this.$store.state.role;
+		}
+	}
 	private created() {
 		// console.log('role: ', this.role);
 	}
