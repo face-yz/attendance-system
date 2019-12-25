@@ -4,10 +4,17 @@
  * @Github: https://github.com/Jensen02
  * @Date: 2019-11-28 21:12:14
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-22 20:34:24
+ * @LastEditTime : 2019-12-25 18:31:25
  */
 import { httpGet, httpPost, uploadPost } from '@/http/http';
-import { LoginParam, Res, StudentInfo, AttendancePlan } from '@/interface';
+import {
+	Res,
+	LoginParam,
+	StudentInfo,
+	AttendancePlan,
+	ApplyVacation,
+	AgreeOrNoLeave,
+} from '@/interface';
 
 /************* 登录 **************/
 
@@ -71,5 +78,25 @@ export async function getAttendancePlanToLeave(uId: string): Promise<Res> {
 		uId,
 	};
 	const res: Res = await httpPost('/api/v1/selectUserAttendPlan', params);
+	return res;
+}
+
+export async function applyForLeave(params: ApplyVacation): Promise<Res> {
+	const res: Res = await httpPost('/api/v1/askLeave', params);
+	return res;
+}
+
+export async function getLeaveList(): Promise<Res> {
+	const res: Res = await httpGet('/api/v1/selectLeaveList');
+	return res;
+}
+
+export async function agreeLeave(params: AgreeOrNoLeave): Promise<Res> {
+	const res: Res = await httpPost('/api/v1/updateArgee', params);
+	return res;
+}
+
+export async function noAgreeLeave(params: AgreeOrNoLeave): Promise<Res> {
+	const res: Res = await httpPost('/api/v1/updateNoArgee', params);
 	return res;
 }

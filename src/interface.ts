@@ -4,10 +4,11 @@
  * @Author: Jensen
  * @Date: 2019-12-04 20:09:28
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-22 20:56:19
+ * @LastEditTime : 2019-12-25 18:06:04
  */
 
 export type Func = () => void;
+export type LeaveList = AttendancePlan & ApplyVacation;
 
 export interface LoginParam {
 	username ?: string;
@@ -49,11 +50,22 @@ export interface AttendancePlan {
 export interface ApplyVacation {
 	uId: string;
 	username: string;
-	startdate: string;
-	enddate: string;
-	reason: string;
+	startt: string;
+	endt: string;
+	userreason: string;
+	state ?: number;
+	id ?: string;
 }
 
-export interface AskForLeave {
+export interface AgreeOrNoLeave {
 	uId: string;
+	id ?: string;
+	startt: string;
+	endt: string;
+	groupname: string;
+	marktime: string;
+	starttime: string;
+	days ?: string;
+	clazzname: string;
+	teachersay ?: string;
 }

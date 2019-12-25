@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-12 21:04:56
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-22 21:24:03
+ * @LastEditTime : 2019-12-25 18:16:46
  -->
 <template>
 	<div>
@@ -74,36 +74,36 @@
 				<el-form-item label="学号" prop="uId">
 					<el-input v-model="ruleForm.uId" disabled></el-input>
 				</el-form-item>
-				<el-form-item label="假期开始时间" prop="startdate" required>
+				<el-form-item label="假期开始时间" prop="startt" required>
 					<el-date-picker
 						type="date"
 						placeholder="选择日期"
 						format="yyyy 年 MM 月 dd 日"
 						value-format="yyyy-MM-dd"
-						v-model="ruleForm.startdate"
+						v-model="ruleForm.startt"
 						:picker-options="pickerOptionsStart"
 						style="width: 100%;">
 					</el-date-picker>
 				</el-form-item>
-				<el-form-item label="假期结束时间" prop="enddate" required>
+				<el-form-item label="假期结束时间" prop="endt" required>
 					<el-date-picker
 						type="date"
 						placeholder="选择日期"
 						format="yyyy 年 MM 月 dd 日"
 						value-format="yyyy-MM-dd"
-						v-model="ruleForm.enddate"
+						v-model="ruleForm.endt"
 						:picker-options="pickerOptionsEnd"
 						style="width: 100%;">
 					</el-date-picker>
 				</el-form-item>
-				<el-form-item label="请假事由" prop="reason">
+				<el-form-item label="请假事由" prop="userreason">
 					<el-input
 						type="textarea"
 						:autosize="{ minRows: 2, maxRows: 4}"
 						maxlength="100"
 						minlength="10"
   					show-word-limit
-						v-model="ruleForm.reason"
+						v-model="ruleForm.userreason"
 						placeholder="请输入10-100位字符">
 					</el-input>
 				</el-form-item>
@@ -118,21 +118,29 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { getAttendancePlanToLeave } from '@/http/api';
+import { getAttendancePlanToLeave, applyForLeave } from '@/http/api';
 import { Res, AttendancePlan, ApplyVacation } from '@/interface';
-import { setWeekDay, setPageTitle } from '@/utils/utils';
+import { setWeekDay, setPageTitle, strChange } from '@/utils/utils';
 import moment from 'moment';
 
 @Component
 export default class LookAttendance extends Vue {
 	private tableData: AttendancePlan[] = [];
+	private leave: AttendancePlan = {
+		clazzname: '',
+		starttime: '',
+		endtime: '',
+		groupname: '',
+		marktime: '',
+		days: '',
+	};
 	private drawer: boolean = false;
 	private ruleForm: ApplyVacation = {
 		uId: '',
 		username: '',
-		startdate: '',
-		enddate: '',
-		reason: '',
+		startt: '',
+		endt: '',
+		userreason: '',
 	};
 	private rules: any =  {
 		username: [
@@ -141,13 +149,13 @@ export default class LookAttendance extends Vue {
 		uId: [
 			{ required: true, message: '学号', trigger: 'blur' },
 		],
-		startdate: [
+		startt: [
 			{ required: true, message: '请选择假期开始日期', trigger: 'change' },
 		],
-		enddate: [
+		endt: [
 			{ required: true, message: '请选择假期结束日期', trigger: 'change' },
 		],
-		reason: [
+		userreason: [
 			{ required: true, message: '请输入请假事由', trigger: 'change' },
 			{ min: 10, max: 100 , message: '请输入10-100位字符' },
 		],
@@ -159,10 +167,8 @@ export default class LookAttendance extends Vue {
 	public submitForm(formName: string) {
 		(this.$refs[formName] as any).validate((valid: any) => {
 			if (valid) {
-				// this.addAttendancePlan
-				console.log(this.ruleForm);
+				this.applyForLeave();
 			} else {
-				// console.log('error submit');
 				return false;
 			}
 		});
@@ -174,7 +180,9 @@ export default class LookAttendance extends Vue {
 		const uId = sessionStorage.getItem('uId');
 		this.ruleForm.uId = String(uId);
 		this.ruleForm.username = String(name);
-		console.log(row);
+		const temp = this._.cloneDeep(row);
+		temp.starttime = strChange(temp.starttime);
+		this.leave = temp;
 	}
 
 	public formatData(data: AttendancePlan[]): void {
@@ -186,7 +194,6 @@ export default class LookAttendance extends Vue {
 			temp['starttime'] = moment(temp['starttime']).format('YYYY 年 MM 月 DD 日');
 			return temp;
 		});
-		// console.log(this.tableData);
 	}
 
 	public closeDrawer() {
@@ -194,10 +201,23 @@ export default class LookAttendance extends Vue {
 		(this.$refs['ruleForm'] as any).resetFields();
 	}
 
+	public async applyForLeave() {
+		const params = {
+			...this.ruleForm,
+			groupname: this.leave.groupname,
+			marktime: this.leave.marktime,
+			starttime: this.leave.starttime,
+			days: this.leave.days,
+			clazzname: this.leave.clazzname,
+		};
+		const res: Res = await applyForLeave(params);
+		parseInt(res.code, 10) === 1 ? this.$message.success(res.msg) : this.$message.error(res.msg);
+		this.drawer = false;
+	}
+
 	public async created() {
 		const uId = sessionStorage.getItem('uId');
 		const res: Res = await getAttendancePlanToLeave(String(uId));
-		// console.log(res);
 		this.formatData(res.data);
 		const self = this;
 		setPageTitle('学生请假');
@@ -205,8 +225,8 @@ export default class LookAttendance extends Vue {
 			disabledDate(time: any) {
 				let end: any;
 				let start: any;
-				if (self.ruleForm.enddate) {
-					end = new Date(self.ruleForm.enddate).valueOf();
+				if (self.ruleForm.endt) {
+					end = new Date(self.ruleForm.endt).valueOf();
 				}
 				start =  Date.now();
 				return time && (time.valueOf() < start) || time.valueOf() > end;
@@ -216,9 +236,9 @@ export default class LookAttendance extends Vue {
 		this.pickerOptionsEnd = {
 			disabledDate(time: any) {
 				let start: any;
-				if (self.ruleForm.startdate) {
+				if (self.ruleForm.startt) {
 					// 让用户可以选择开始结束同一天
-					start = new Date(self.ruleForm.startdate).valueOf() + 1;
+					start = new Date(self.ruleForm.startt).valueOf() + 1;
 				} else {
 					start = Date.now();
 				}
