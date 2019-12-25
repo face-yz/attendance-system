@@ -4,7 +4,7 @@
  * @Github: https://github.com/Jensen02
  * @Date: 2019-11-28 21:21:04
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-20 18:04:16
+ * @LastEditTime : 2019-12-25 23:04:15
  */
 import Vue from 'vue';
 import Router, { Route, RouteConfig } from 'vue-router';
@@ -63,6 +63,24 @@ const router = new Router({
 					path: 'look-attendance',
 					name: 'look-attendance',
 					component: () => import('@/components/LookAttendance.vue'),
+					meta: {
+						requireAuth: true,
+						roles: ['student'],
+					},
+				},
+				{
+					path: 'attendance-record',
+					name: 'attendance-record',
+					component: () => import('@/components/AttendanceRecord.vue'),
+					meta: {
+						requireAuth: true,
+						roles: ['student'],
+					},
+				},
+				{
+					path: 'leave-record',
+					name: 'leave-record',
+					component: () => import('@/components/LeaveRecord.vue'),
 					meta: {
 						requireAuth: true,
 						roles: ['student'],
