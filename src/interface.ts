@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-04 20:09:28
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-25 18:06:04
+ * @LastEditTime : 2019-12-26 21:40:33
  */
 
 export type Func = () => void;
@@ -68,4 +68,19 @@ export interface AgreeOrNoLeave {
 	days ?: string;
 	clazzname: string;
 	teachersay ?: string;
+	week ?: string[];
 }
+
+export interface AttendRecord {
+	clazzname: string;
+	days: string;
+	groupname: string;
+	marktime: string;
+	selecttime: string;
+	signdate: string;
+	starttime: string;
+	state: number;
+	uId: string;
+	week ?: string[];
+}
+

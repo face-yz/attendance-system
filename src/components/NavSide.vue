@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-11 15:23:15
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-20 20:46:01
+ * @LastEditTime : 2019-12-26 16:39:44
  -->
 
 <template>
@@ -32,7 +32,9 @@
 						<span>信息查询</span>
 					</template>
 					<el-menu-item-group>
-						<el-menu-item :index="'/student/look-attendance'">查询考勤</el-menu-item>
+						<el-menu-item :index="'/student/look-attendance'">考勤计划</el-menu-item>
+						<el-menu-item :index="'/student/leave-record'">请假记录</el-menu-item>
+						<!-- <el-menu-item :index="'/student/attendance-record'">考勤记录</el-menu-item> -->
 					</el-menu-item-group>
 				</el-submenu>
 			</el-menu>

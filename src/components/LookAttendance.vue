@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-12 21:04:56
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-25 18:16:46
+ * @LastEditTime : 2019-12-26 18:46:30
  -->
 <template>
 	<div>
@@ -51,7 +51,7 @@
 				width="180">
 				<template slot-scope="scope">
 					<el-button type="text" title="学生请假" @click="handleClick(scope.row)" size="medium">请假</el-button>
-					<el-button type="text" title="查询该课程过往考勤记录">考勤记录</el-button>
+					<el-button type="text" title="查询该课程过往考勤记录" @click="goRecord(scope.row)">考勤记录</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -213,6 +213,17 @@ export default class LookAttendance extends Vue {
 		const res: Res = await applyForLeave(params);
 		parseInt(res.code, 10) === 1 ? this.$message.success(res.msg) : this.$message.error(res.msg);
 		this.drawer = false;
+	}
+
+	public goRecord(row: AttendancePlan) {
+		const temp = this._.cloneDeep(row);
+		temp.starttime = strChange(temp.starttime);
+		const payload = {
+			...temp,
+		};
+		console.log('payload: ', payload);
+		this.$store.dispatch('SET_PLAN', payload);
+		this.$router.push('/student/attendance-record');
 	}
 
 	public async created() {

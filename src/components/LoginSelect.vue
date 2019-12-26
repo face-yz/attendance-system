@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-03 20:30:06
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-25 16:45:10
+ * @LastEditTime : 2019-12-26 15:59:20
  -->
 
 <template>
@@ -156,9 +156,9 @@ export default class LoginSelect extends Vue {
 			localStorage.setItem('as_token', res.data[0].token);
 			res.data[1].uId && sessionStorage.setItem('uId', res.data[1].uId);
 			res.data[1].username && sessionStorage.setItem('name', res.data[1].username);
+			this.$store.dispatch('CHANGE_ROLE', {role: this.auth});
+			this.$router.replace(`/${this.auth}`);
 		}
-		this.$store.dispatch('CHANGE_ROLE', {role: this.auth});
-		this.$router.replace(`/${this.auth}`);
 	}
 }
 </script>
