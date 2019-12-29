@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-25 22:54:57
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-26 21:45:27
+ * @LastEditTime : 2019-12-27 16:59:47
  -->
 
 <template>
@@ -93,10 +93,12 @@ export default class AttendanceRecord extends Vue {
 		const selecttime = moment().format('YYYY-MM-DD');
 		const uId = String(sessionStorage.getItem('uId'));
 		const attend = this.$store.state.attendancePlan;
+		const pageNo = 0;
 		const params = {
 			...attend,
 			uId,
 			selecttime,
+			pageNo,
 		};
 		const res = await getAttendanceRecordList(params);
 		this.formatData(res.data);
