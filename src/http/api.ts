@@ -4,7 +4,7 @@
  * @Github: https://github.com/Jensen02
  * @Date: 2019-11-28 21:12:14
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-26 19:00:38
+ * @LastEditTime : 2019-12-29 18:40:07
  */
 import { httpGet, httpPost, uploadPost } from '@/http/http';
 import {
@@ -127,5 +127,13 @@ export async function getLeaveRecordList(uId: string): Promise<Res> {
 // 获取并查看考勤记录
 export async function getAttendanceRecordList(params: any): Promise<Res> {
 	const res: Res = await httpPost('/api/v1/selectUserSignList', params);
+	return res;
+}
+
+/************* 学生打卡(学生端) **************/
+
+// 学生拍照打卡
+export async function photoPunch(params: any): Promise<Res> {
+	const res: Res = await uploadPost('/api/v1/selectUserSignAttendPlanList', params);
 	return res;
 }
