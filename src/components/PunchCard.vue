@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-11 15:45:30
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-29 18:54:04
+ * @LastEditTime : 2019-12-30 15:12:33
  -->
 
 <template>
@@ -35,7 +35,7 @@ export default class PunchCard extends Vue {
 	public async photoPunch(file: File) {
 		const formdata: any = new FormData();
 		formdata.append('now', momemt().format('YYYY-MM-DD'));
-		formdata.append('noetime', momemt().format('HH:mm:ss'));
+		formdata.append('nowtime', momemt().format('HH:mm:ss'));
 		formdata.append('img', file);
 		const res = await photoPunch(formdata);
 		console.log('res: ', res);
@@ -85,6 +85,9 @@ export default class PunchCard extends Vue {
 
 	public created() {
 		this.callCamera();
+	}
+	public beforeDestroy() {
+		this.closeCamera();
 	}
 }
 </script>
