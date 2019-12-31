@@ -4,7 +4,7 @@
  * @Github: https://github.com/Jensen02
  * @Date: 2019-11-28 21:21:04
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-26 18:38:14
+ * @LastEditTime : 2019-12-30 22:49:03
  */
 import Vue from 'vue';
 import Router, { Route, RouteConfig } from 'vue-router';
@@ -35,7 +35,7 @@ const router = new Router({
 		{
 			path: '/',
 			// name: 'home',
-			redirect: '/login',
+			redirect: '/student/punch-card',
 		},
 		{
 			path: '/login',
@@ -46,16 +46,13 @@ const router = new Router({
 			path: '/student',
 			name: 'student',
 			component: Home,
-			meta: {
-				requireAuth: true,
-			},
 			children: [
 				{
 					path: 'punch-card',
 					name: 'punch-card',
 					component: () => import('@/components/PunchCard.vue'),
 					meta: {
-						requireAuth: true,
+						requireAuth: false,
 						roles: ['student'],
 					},
 				},
@@ -144,25 +141,31 @@ const router = new Router({
 			],
 		},
 		{
-			path: '/404',
+			path: '*',
 			name: '404',
 			component: () => import('@/views/404.vue'),
 		},
 	],
 });
 
-// router.beforeEach((to: Route, from: Route, next) => {
-// 	if (to.matched.some((route) => route.meta.requireAuth)) {
-// 		if (!checkIsLogin()) {
-// 			next({
-// 				path: '/login',
-// 				query: {
-// 					redirect: to.fullPath,
-// 				},
-// 			});
-// 		}
-// 	}
-// 	next();
-// });
+router.beforeEach((to: Route, from: Route, next) => {
+	if (to.path === '/student/punch-card') {
+		localStorage.setItem('auth', 'student');
+	}
+	if (to.matched.some((route) => route.meta.requireAuth)) {
+		if (!checkIsLogin()) {
+			next({
+				path: '/login',
+				query: {
+					redirect: to.fullPath,
+				},
+			});
+		} else {
+			next();
+		}
+	} else {
+		next();
+	}
+});
 
 export default router;

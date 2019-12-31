@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-11 15:23:15
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-26 16:39:44
+ * @LastEditTime : 2019-12-30 21:14:18
  -->
 
 <template>
@@ -17,7 +17,7 @@
 				v-if="this.role === 'student'"
 				router
 				active-text-color="#ffd04b">
-				<el-submenu index="1">
+				<el-submenu index="1"  v-if="isLogin">
 					<template slot="title">
 						<i class="el-icon-alarm-clock"></i>
 						<span>上课打卡</span>
@@ -77,20 +77,18 @@ import { Component, Vue } from 'vue-property-decorator';
 
 @Component({})
 export default class NavSide extends Vue {
-	// private role: string = this.$store.state.role;
-	get role() {
-		if (this.$store.state.role.length) {
-			return this.$store.state.role;
-		}
-	}
+	private role: string = '';
+	private isLogin: boolean = true;
 	private created() {
-		// console.log('role: ', this.role);
+		this.isLogin = localStorage.getItem('as_token') === null ? true : false;
+		const auth = localStorage.getItem('auth');
+		this.role = auth === null ? '' : String(auth);
 	}
 }
 </script>
 
 <style lang="less" scoped>
-	.el-menu {
-		height: 2000px;
+	.el-submenu {
+		width: 220px;
 	}
 </style>

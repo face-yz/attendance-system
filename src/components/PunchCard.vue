@@ -1,44 +1,98 @@
 <!--
- * @Description: 打卡、请假
+ * @Description: 学生打卡
  * @GitHub: https://github.com/Jensen02
  * @Author: Jensen
  * @Date: 2019-12-11 15:45:30
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-30 15:12:33
+ * @LastEditTime : 2019-12-31 13:53:09
  -->
 
 <template>
-	<div>
-		<div class="punch-card">
-			<!--开启摄像头-->
-			<!-- <img @click="this.callCamera" :src="this.headImgSrc" alt="摄像头"> -->
-			<!--canvas截取流-->
-			<div ref="content">
-				<canvas ref="canvas" width="320" height="240"></canvas>
-				<!--图片展示-->
-				<video ref="video" class="video-img"></video>
-				<!--确认-->
-				<el-button type="primary" @click="photograph">拍照</el-button>
-			</div>
+	<div class="punch-card">
+		<!--开启摄像头-->
+		<!-- <img @click="this.callCamera" :src="this.headImgSrc" alt="摄像头"> -->
+		<!--canvas截取流-->
+		<div class="content">
+			<canvas ref="canvas" width="320" height="240"></canvas>
+			<!--图片展示-->
+			<video ref="video" class="video-img"></video>
+			<!--确认-->
+			<el-button type="primary" style="margin-top:20px" @click="photograph">拍照</el-button>
+		</div>
+		<div class="attend-info">
+			<h3>打卡信息</h3>
+			<el-divider></el-divider>
+			<el-form ref="form" :model="attendInfo" label-width="80px">
+				<el-form-item label="姓名：">
+					<span>{{ attendInfo.username }}</span>
+				</el-form-item>
+				<el-form-item label="课程：">
+					<span>{{ attendInfo.clazzname }}</span>
+				</el-form-item>
+				<el-form-item label="教室：">
+					<span>{{ attendInfo.groupname }}</span>
+				</el-form-item>
+			</el-form>
 		</div>
 	</div>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { dataURLtoFile } from '@/utils/utils';
-import { photoPunch } from '@/http/api';
+import { dataURLtoFile, setPageTitle } from '@/utils/utils';
+import { photoPunch, punchCard } from '@/http/api';
+import { Res } from '@/interface';
 import momemt from 'moment';
 
 @Component({})
 export default class PunchCard extends Vue {
-	public headImgSrc: string = '';
+	private attendInfo = {
+		username: '',
+		groupname: '',
+		clazzname: '',
+	};
+	public async punchCard(params: any): Promise<Res> {
+		const punch = Object.assign(params);
+		punch['signdate'] = momemt(punch['signdate']).format('YYYY-MM-DD');
+		punch['starttime'] = momemt(punch['startdate']).format('YYYY-MM-DD');
+		punch['state'] = punch['flag'];
+		delete punch['flag'];
+		console.log('punch: ', punch);
+		return await punchCard(punch);
+	}
 	public async photoPunch(file: File) {
 		const formdata: any = new FormData();
 		formdata.append('now', momemt().format('YYYY-MM-DD'));
 		formdata.append('nowtime', momemt().format('HH:mm:ss'));
 		formdata.append('img', file);
 		const res = await photoPunch(formdata);
-		console.log('res: ', res);
+		if (res.data === null) {
+			this.$message.warning(res.msg);
+			setTimeout(() => {
+				this.$router.go(0);
+			}, 2000);
+			return;
+		}
+		const data = res.data === null ? {} : res.data[0];
+		this.attendInfo = Object.assign(this.attendInfo, data);
+		const flag: number = data.flag;
+		if (flag === 1 || flag === 3) {
+			const r: Res = await this.punchCard(res.data[0]);
+			if (parseInt(r.code, 10) === 1) {
+				this.$notify[flag === 1 ? 'success' : 'error']({
+					title: '打卡',
+					message: flag === 1 ? '打卡成功！' : '打卡成功(已迟到)！',
+				});
+			}
+		}
+		if (flag === -1) {
+			this.$notify.warning({
+				title: '打卡',
+				message: '该课程打卡未开始！',
+			});
+		}
+		setTimeout(() => {
+			this.$router.go(0);
+		}, 2000);
 	}
 	public callCamera() {
 		const self = this;
@@ -51,8 +105,10 @@ export default class PunchCard extends Vue {
 			// 实时拍照效果
 			(this.$refs['video'] as any).play();
 		}).catch((error: any) => {
-			// console.error('摄像头开启失败，请检查摄像头是否可用！');
-			self.$message.error('摄像头开启失败，请检查摄像头是否可用！');
+			self.$notify.error({
+				title: '开启摄像头',
+				message: '摄像头开启失败，请检查摄像头是否可用！',
+			});
 		});
 	}
 
@@ -67,8 +123,6 @@ export default class PunchCard extends Vue {
 		// (this.$refs['content'] as any).style.left = 0;
 		// this.headImgSrc = imgBase64;
 		this.photoPunch(file);
-		// console.log(imgBase64);
-		console.log(file);
 	}
 
 	public closeCamera() {
@@ -84,6 +138,7 @@ export default class PunchCard extends Vue {
 	}
 
 	public created() {
+		setPageTitle('学生打卡');
 		this.callCamera();
 	}
 	public beforeDestroy() {
@@ -127,15 +182,21 @@ export default class PunchCard extends Vue {
 		& canvas {
 			background-color: #F0F3F9;
 		}
-		& > div {
+		& > .content {
 			position: absolute;
 			width: 660px;
-			// margin: 0 auto;
 			transition: all 1.5s;
+		}
+		& > .attend-info {
+			position: absolute;
+			left: 760px;
 		}
 	}
 	.video-img {
 		width: 320px;
 		margin-left: 20px;
+	}
+	.el-form-item__content {
+		text-align: left;
 	}
 </style>

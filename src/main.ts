@@ -4,11 +4,12 @@
  * @Github: https://github.com/Jensen02
  * @Date: 2019-09-15 21:59:24
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-20 15:19:11
+ * @LastEditTime : 2019-12-30 21:35:52
  */
 import Vue from 'vue';
 import VueRouter, { Route } from 'vue-router';
 import { ElMessage } from 'element-ui/types/message';
+import { ElNotification } from 'element-ui/types/notification';
 import { ElMessageBox } from 'element-ui/types/message-box';
 import {
 	Button,
@@ -45,11 +46,13 @@ import {
 	Dialog,
 	Tabs,
 	TabPane,
+	Notification,
 } from 'element-ui';
 import App from './App.vue';
 import router from './router';
 import store from '@/store/store';
 import lodash from 'lodash';
+// import animated from '../node_modules/animate.css/';
 
 Vue.use(Button);
 Vue.use(Row);
@@ -89,6 +92,7 @@ declare module 'vue/types/vue' {
 		$router: VueRouter;
 		$route: Route;
 		$message: ElMessage;
+		$notify: ElNotification;
 		$messageBox: ElMessageBox;
 		_: typeof lodash;
 	}
@@ -96,6 +100,7 @@ declare module 'vue/types/vue' {
 
 Vue.config.productionTip = false;
 Vue.prototype.$message = Message;
+Vue.prototype.$notify = Notification;
 Vue.prototype.$messageBox = MessageBox;
 Vue.prototype['_'] = lodash;
 

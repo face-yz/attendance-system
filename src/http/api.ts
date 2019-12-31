@@ -4,7 +4,7 @@
  * @Github: https://github.com/Jensen02
  * @Date: 2019-11-28 21:12:14
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-29 18:40:07
+ * @LastEditTime : 2019-12-30 23:00:34
  */
 import { httpGet, httpPost, uploadPost } from '@/http/http';
 import {
@@ -135,5 +135,10 @@ export async function getAttendanceRecordList(params: any): Promise<Res> {
 // 学生拍照打卡
 export async function photoPunch(params: any): Promise<Res> {
 	const res: Res = await uploadPost('/api/v1/selectUserSignAttendPlanList', params);
+	return res;
+}
+
+export async function punchCard(params: any): Promise<Res> {
+	const res: Res = await httpPost('/api/v1/updateUserSign', params);
 	return res;
 }

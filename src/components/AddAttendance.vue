@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-12 20:41:11
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-20 20:32:32
+ * @LastEditTime : 2019-12-30 22:37:18
  -->
 <template>
 	<div>
@@ -174,7 +174,7 @@ export default class AttendanceList extends Vue {
 				if (self.ruleForm.endtime) {
 					end = new Date(self.ruleForm.endtime).valueOf();
 				}
-				start =  Date.now();
+				start =  Date.now() - 8.64e7;
 				return time && (time.valueOf() < start) || time.valueOf() > end;
 			},
 		};
@@ -184,9 +184,9 @@ export default class AttendanceList extends Vue {
 				let start: any;
 				if (self.ruleForm.starttime) {
 					// 让用户可以选择开始结束同一天
-					start = new Date(self.ruleForm.starttime).valueOf() + 1;
+					start = new Date(self.ruleForm.starttime).valueOf() - 8.64e7 	+ 1;
 				} else {
-					start = Date.now();
+					start = Date.now() - 8.64e7;
 				}
 				return time && time.valueOf() < start;
 			},

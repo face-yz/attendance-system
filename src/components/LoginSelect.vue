@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-03 20:30:06
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-27 17:01:14
+ * @LastEditTime : 2019-12-30 21:14:37
  -->
 
 <template>
@@ -102,10 +102,8 @@ export default class LoginSelect extends Vue {
 	public submitForm(formName: string) {
 		(this.$refs[formName] as any).validate((valid: any) => {
 			if (valid) {
-				console.log(this.ruleForm);
 				this.login();
 			} else {
-				console.log('error submit!!');
 				return false;
 			}
 		});
@@ -158,7 +156,8 @@ export default class LoginSelect extends Vue {
 				sessionStorage.setItem('uId', res.data[1].uId);
 				sessionStorage.setItem('name', res.data[1].username);
 			}
-			this.$store.dispatch('CHANGE_ROLE', {role: this.auth});
+			// this.$store.dispatch('CHANGE_ROLE', {role: this.auth});
+			localStorage.setItem('auth', this.auth);
 			this.$router.replace(`/${this.auth}`);
 		}
 	}

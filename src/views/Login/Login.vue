@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-03 20:30:06
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-26 16:45:45
+ * @LastEditTime : 2019-12-30 21:15:12
  -->
 
 <template>
@@ -34,9 +34,8 @@ import LoginSelect from '@/components/LoginSelect.vue';
 })
 export default class Login extends Vue {
 	private activeName: string = 'teacher';
-	public handleClick(tab: any, event: any): void {
-		console.log(tab, event);
-	}
+	// public handleClick(tab: any, event: any): void {
+	// }
 
 	private created() {
 		setPageTitle('登录');
