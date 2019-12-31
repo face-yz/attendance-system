@@ -4,17 +4,17 @@
  * @Author: Jensen
  * @Date: 2019-12-25 22:54:57
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-27 16:59:47
+ * @LastEditTime : 2019-12-31 14:46:12
  -->
 
 <template>
 	<div>
-		<h1>考勤记录</h1>
+		<!-- <h1>考勤记录</h1> -->
 		<el-table
 			:data="tableData"
 			border
 			stripe
-			style="width: 1701px">
+			style="width: 881px">
 			<el-table-column
 				prop="clazzname"
 				label="课程名称"
@@ -65,7 +65,7 @@ import moment from 'moment';
 @Component
 export default class AttendanceRecord extends Vue {
 	private state = new Map([
-		[0, '旷课'],
+		[0, '未打卡'],
 		[1, '已签到'],
 		[2, '请假'],
 		[3, '迟到'],
@@ -101,7 +101,7 @@ export default class AttendanceRecord extends Vue {
 			pageNo,
 		};
 		const res = await getAttendanceRecordList(params);
-		this.formatData(res.data);
+		this.formatData(res.data[0].result);
 	}
 	public created() {
 		setPageTitle('考勤记录');

@@ -4,12 +4,12 @@
  * @Author: Jensen
  * @Date: 2019-12-03 20:30:06
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-30 21:15:12
+ * @LastEditTime : 2019-12-31 14:28:09
  -->
 
 <template>
 	<div>
-		<el-tabs v-model="activeName" @tab-click="handleClick" stretch>
+		<el-tabs v-model="activeName" stretch>
 			<el-tab-pane label="管理员登录" name="teacher">
 				<!-- 老师登录 -->
 				<LoginSelect loginAuth='teacher' />

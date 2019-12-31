@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-11 15:45:30
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-31 13:53:09
+ * @LastEditTime : 2019-12-31 14:53:57
  -->
 
 <template>
@@ -69,7 +69,7 @@ export default class PunchCard extends Vue {
 			this.$message.warning(res.msg);
 			setTimeout(() => {
 				this.$router.go(0);
-			}, 2000);
+			}, 3000);
 			return;
 		}
 		const data = res.data === null ? {} : res.data[0];
@@ -92,7 +92,7 @@ export default class PunchCard extends Vue {
 		}
 		setTimeout(() => {
 			this.$router.go(0);
-		}, 2000);
+		}, 3000);
 	}
 	public callCamera() {
 		const self = this;
