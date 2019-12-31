@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-12 20:41:11
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-30 22:37:18
+ * @LastEditTime : 2019-12-31 14:58:42
  -->
 <template>
 	<div>
@@ -184,7 +184,7 @@ export default class AttendanceList extends Vue {
 				let start: any;
 				if (self.ruleForm.starttime) {
 					// 让用户可以选择开始结束同一天
-					start = new Date(self.ruleForm.starttime).valueOf() - 8.64e7 	+ 1;
+					start = new Date(self.ruleForm.starttime).valueOf() + 7;
 				} else {
 					start = Date.now() - 8.64e7;
 				}
