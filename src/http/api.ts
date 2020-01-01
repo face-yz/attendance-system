@@ -4,7 +4,7 @@
  * @Github: https://github.com/Jensen02
  * @Date: 2019-11-28 21:12:14
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-30 23:00:34
+ * @LastEditTime : 2020-01-01 20:33:17
  */
 import { httpGet, httpPost, uploadPost } from '@/http/http';
 import {
@@ -77,6 +77,18 @@ export async function getAttendancePlanList(): Promise<Res> {
 // 在考勤计划中录入学生
 export async function loggingStudentInfo(params: any): Promise<Res> {
 	const res: Res = await uploadPost('/api/v1/addPlan/addPlanUser', params);
+	return res;
+}
+
+// 查看某天考勤计划中学生打卡情况
+export async function studentAttendInfoList(params: any): Promise<Res> {
+	const res: Res = await httpPost('/api/v1/selectAttendPlanSignList', params);
+	return res;
+}
+
+// 获取考勤状态信息
+export async function attendStateInfo(params: any): Promise<Res> {
+	const res: Res = await httpPost('/api/v1/selectClazzCurrentPercentage', params);
 	return res;
 }
 

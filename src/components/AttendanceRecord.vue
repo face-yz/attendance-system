@@ -4,12 +4,11 @@
  * @Author: Jensen
  * @Date: 2019-12-25 22:54:57
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-31 14:46:12
+ * @LastEditTime : 2020-01-01 16:42:01
  -->
 
 <template>
 	<div>
-		<!-- <h1>考勤记录</h1> -->
 		<el-table
 			:data="tableData"
 			border
@@ -52,6 +51,14 @@
 				</template>
 			</el-table-column>
 		</el-table>
+		<div class="block">
+    <el-pagination
+      @current-change="handleCurrentChange"
+      :current-page.sync="currentPage"
+      layout="prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
+  </div>
 	</div>
 </template>
 
@@ -64,6 +71,8 @@ import moment from 'moment';
 
 @Component
 export default class AttendanceRecord extends Vue {
+	private currentPage: number = 1;
+	private total: number = 0;
 	private state = new Map([
 		[0, '未打卡'],
 		[1, '已签到'],
@@ -89,11 +98,10 @@ export default class AttendanceRecord extends Vue {
 			return temp;
 		});
 	}
-	public async getData() {
+	public async getData(pageNo: number) {
 		const selecttime = moment().format('YYYY-MM-DD');
 		const uId = String(sessionStorage.getItem('uId'));
 		const attend = this.$store.state.attendancePlan;
-		const pageNo = 0;
 		const params = {
 			...attend,
 			uId,
@@ -101,14 +109,23 @@ export default class AttendanceRecord extends Vue {
 			pageNo,
 		};
 		const res = await getAttendanceRecordList(params);
+		this.total = res.data[0].total;
 		this.formatData(res.data[0].result);
+	}
+	public handleCurrentChange(val: number) {
+		console.log(`当前页: ${val}`);
+		this.getData(val - 1);
 	}
 	public created() {
 		setPageTitle('考勤记录');
-		this.getData();
+		this.getData(0);
 	}
 }
 </script>
 
 <style scoped lang="less">
+	.block {
+		width: 881px;
+		margin-top: 20px;
+	}
 </style>

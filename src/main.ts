@@ -4,7 +4,7 @@
  * @Github: https://github.com/Jensen02
  * @Date: 2019-09-15 21:59:24
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-30 21:35:52
+ * @LastEditTime : 2020-01-01 21:41:05
  */
 import Vue from 'vue';
 import VueRouter, { Route } from 'vue-router';
@@ -47,12 +47,13 @@ import {
 	Tabs,
 	TabPane,
 	Notification,
+	Pagination,
 } from 'element-ui';
 import App from './App.vue';
 import router from './router';
 import store from '@/store/store';
 import lodash from 'lodash';
-// import animated from '../node_modules/animate.css/';
+import Echarts from 'echarts';
 
 Vue.use(Button);
 Vue.use(Row);
@@ -86,6 +87,7 @@ Vue.use(Upload);
 Vue.use(Dialog);
 Vue.use(Tabs);
 Vue.use(TabPane);
+Vue.use(Pagination);
 
 declare module 'vue/types/vue' {
 	interface Vue {
@@ -95,6 +97,7 @@ declare module 'vue/types/vue' {
 		$notify: ElNotification;
 		$messageBox: ElMessageBox;
 		_: typeof lodash;
+		$echarts: typeof Echarts;
 	}
 }
 
@@ -103,6 +106,7 @@ Vue.prototype.$message = Message;
 Vue.prototype.$notify = Notification;
 Vue.prototype.$messageBox = MessageBox;
 Vue.prototype['_'] = lodash;
+Vue.prototype.$echarts = Echarts;
 
 new Vue({
 	router,

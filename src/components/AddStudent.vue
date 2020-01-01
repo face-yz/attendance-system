@@ -3,13 +3,12 @@
  * @GitHub: https://github.com/Jensen02
  * @Author: Jensen
  * @Date: 2019-12-12 18:09:27
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-12-18 14:53:02
+ * @LastEditors  : Please set LastEditors
+ * @LastEditTime : 2020-01-01 16:42:24
  -->
 
 <template>
 	<div>
-		<h3>添加学生</h3>
 		<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
 			<el-form-item label="学生姓名" prop="username">
 				<el-input v-model="ruleForm.username"></el-input>

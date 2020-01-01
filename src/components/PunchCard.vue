@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-11 15:45:30
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-31 14:53:57
+ * @LastEditTime : 2020-01-01 16:26:36
  -->
 
 <template>
@@ -51,12 +51,12 @@ export default class PunchCard extends Vue {
 		clazzname: '',
 	};
 	public async punchCard(params: any): Promise<Res> {
+		console.log('puncg');
 		const punch = Object.assign(params);
 		punch['signdate'] = momemt(punch['signdate']).format('YYYY-MM-DD');
-		punch['starttime'] = momemt(punch['startdate']).format('YYYY-MM-DD');
+		punch['starttime'] = momemt(punch['starttime']).format('YYYY-MM-DD');
 		punch['state'] = punch['flag'];
 		delete punch['flag'];
-		console.log('punch: ', punch);
 		return await punchCard(punch);
 	}
 	public async photoPunch(file: File) {
@@ -72,11 +72,11 @@ export default class PunchCard extends Vue {
 			}, 3000);
 			return;
 		}
-		const data = res.data === null ? {} : res.data[0];
-		this.attendInfo = Object.assign(this.attendInfo, data);
-		const flag: number = data.flag;
+		const temp = res.data === null ? {} : this._.cloneDeep(res.data[0]);
+		this.attendInfo = Object.assign(this.attendInfo, temp);
+		const flag: number = temp.flag;
 		if (flag === 1 || flag === 3) {
-			const r: Res = await this.punchCard(res.data[0]);
+			const r: Res = await this.punchCard(temp);
 			if (parseInt(r.code, 10) === 1) {
 				this.$notify[flag === 1 ? 'success' : 'error']({
 					title: '打卡',
@@ -119,9 +119,6 @@ export default class PunchCard extends Vue {
 		// 转base64格式、图片格式转换、图片质量压缩
 		const imgBase64 = (this.$refs['canvas'] as any).toDataURL('image/jpeg');
 		const file = dataURLtoFile(imgBase64, `${Date.now()}.jpg`);
-		// (this.$refs['content'] as any).style.position = 'absolute';
-		// (this.$refs['content'] as any).style.left = 0;
-		// this.headImgSrc = imgBase64;
 		this.photoPunch(file);
 	}
 

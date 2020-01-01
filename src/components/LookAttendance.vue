@@ -4,11 +4,10 @@
  * @Author: Jensen
  * @Date: 2019-12-12 21:04:56
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-26 18:46:30
+ * @LastEditTime : 2020-01-01 16:41:44
  -->
 <template>
 	<div>
-		<h3>学生查看考勤</h3>
 		<el-table
 			:data="tableData"
 			border
@@ -221,7 +220,6 @@ export default class LookAttendance extends Vue {
 		const payload = {
 			...temp,
 		};
-		console.log('payload: ', payload);
 		this.$store.dispatch('SET_PLAN', payload);
 		this.$router.push('/student/attendance-record');
 	}

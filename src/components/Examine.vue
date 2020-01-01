@@ -4,11 +4,10 @@
  * @Author: Jensen
  * @Date: 2019-12-12 21:18:58
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-25 20:10:18
+ * @LastEditTime : 2020-01-01 16:43:14
  -->
 <template>
 	<div>
-		<h3>请假审批</h3>
 		<el-table
 			:data="tableData"
 			border

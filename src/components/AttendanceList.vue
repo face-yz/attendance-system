@@ -4,11 +4,10 @@
  * @Author: Jensen
  * @Date: 2019-12-12 20:41:33
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-22 20:44:34
+ * @LastEditTime : 2020-01-01 17:55:35
  -->
 <template>
 	<div>
-		<!-- <h3>查看考勤信息</h3> -->
 		<el-table
 			:data="tableData"
 			border
@@ -61,6 +60,7 @@
 				width="180">
 				<template slot-scope="scope">
 					<el-button type="text" @click="handleClick(scope.row)" size="medium">录入学生</el-button>
+					<el-button type="text" @click="goAttend(scope.row)" size="medium">查看考勤</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -240,6 +240,19 @@ export default class AttendanceList extends Vue {
 		}
 		const res: Res = await loggingStudentInfo(formdata);
 		parseInt(res.code, 10) === 1 ? this.$message.success(res.msg) : this.$message.error(res.msg);
+	}
+	public goAttend(row: AttendancePlan) {
+		const temp: AttendancePlan = this._.cloneDeep(row);
+		this.$router.push({
+			path: '/teacher/attendance-info',
+			query: {
+				clazzname: temp.clazzname,
+				groupname: temp.groupname,
+				starttime: strChange(temp.starttime),
+				days: temp.days,
+				marktime: temp.marktime,
+			},
+		});
 	}
 	public async created() {
 		const res: Res = await getAttendancePlanList();

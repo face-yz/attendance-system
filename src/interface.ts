@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-04 20:09:28
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-26 21:40:33
+ * @LastEditTime : 2020-01-01 17:34:40
  */
 
 export type Func = () => void;
@@ -83,4 +83,3 @@ export interface AttendRecord {
 	uId: string;
 	week ?: string[];
 }
-
