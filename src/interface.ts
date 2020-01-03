@@ -1,10 +1,12 @@
+import { InputNumber } from 'element-ui';
+
 /*
  * @Description: 定义所有接口形状
  * @GitHub: https://github.com/Jensen02
  * @Author: Jensen
  * @Date: 2019-12-04 20:09:28
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-01 17:34:40
+ * @LastEditTime : 2020-01-02 16:45:21
  */
 
 export type Func = () => void;
@@ -82,4 +84,19 @@ export interface AttendRecord {
 	state: number;
 	uId: string;
 	week ?: string[];
+}
+
+export interface AttendState {
+	abnormal: number;
+	leave: number;
+	late: number;
+	normal: number;
+	total ?: number;
+	clazzname ?: string;
+	groupname ?: string;
+}
+
+export interface Data {
+	value: number;
+	name: string;
 }

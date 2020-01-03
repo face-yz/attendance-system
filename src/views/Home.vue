@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-09-15 21:59:05
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-30 20:44:46
+ * @LastEditTime : 2020-01-02 17:27:58
  -->
 
 <template>
@@ -87,7 +87,7 @@ export default class Home extends Vue {
 	private created() {
 		setPageTitle('首页');
 		this.loginOrOut();
-		console.log(this.showStu, this.name);
+		// console.log(this.showStu, this.name);
 	}
 }
 </script>

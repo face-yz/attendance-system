@@ -4,10 +4,12 @@
  * @Github: https://github.com/Jensen02
  * @Date: 2019-11-28 21:12:06
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-19 20:44:52
+ * @LastEditTime : 2020-01-02 17:29:15
  */
 
 import axios from 'axios';
+import { MessageBox } from 'element-ui';
+import router from '@/router';
 import { Res } from '@/interface';
 // import qs from 'qs';
 
@@ -25,6 +27,21 @@ axios.interceptors.request.use((config) => {
 });
 
 axios.interceptors.response.use((response) => {
+	const code: number = parseInt(response.data.code, 10);
+	if (code === -1) {
+		MessageBox.confirm('当前登录已过期， 请重新前往登录！', '登录过期', {
+			confirmButtonText: '确定',
+			cancelButtonText: '取消',
+			type: 'warning',
+		}).then(() => {
+			router.push({
+				path: 'login',
+				query: {
+					redirect: router.currentRoute.fullPath,
+				},
+			});
+		});
+	}
 	return response;
  }, (error) => {
 	console.error('axios response error: ', error);

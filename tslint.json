@@ -18,6 +18,7 @@
     "no-console": [false],
     "no-unused-expression":false,
     "no-string-literal":false,
-    "no-conditional-assignment":false
+    "no-conditional-assignment":false,
+    "object-literal-shorthand": false
   }
 }

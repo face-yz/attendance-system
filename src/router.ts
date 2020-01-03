@@ -4,7 +4,7 @@
  * @Github: https://github.com/Jensen02
  * @Date: 2019-11-28 21:21:04
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-01 17:22:23
+ * @LastEditTime : 2020-01-02 15:14:23
  */
 import Vue from 'vue';
 import Router, { Route, RouteConfig } from 'vue-router';

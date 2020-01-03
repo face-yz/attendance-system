@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2020-01-01 17:13:38
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-01 22:49:47
+ * @LastEditTime : 2020-01-02 17:48:05
  -->
 <template>
 	<div style="position:relative;">
@@ -66,7 +66,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { studentAttendInfoList, attendStateInfo } from '@/http/api';
-import { Res, AttendRecord } from '@/interface';
+import { Res, AttendRecord, AttendState, Data } from '@/interface';
 import moment from 'moment';
 
 @Component
@@ -74,6 +74,7 @@ export default class StudentAttendInfo extends Vue {
 	private tableData: AttendRecord[] = [];
 	private signdate: string = moment().format('YYYY 年 MM 月 DD 日');
 	private selecttime: string = '';
+	private params = {};
 	private state = new Map([
 		[0, '未打卡'],
 		[1, '已签到'],
@@ -86,9 +87,15 @@ export default class StudentAttendInfo extends Vue {
 		[2, 'info'],
 		[3, 'warning'],
 	]);
+	private attendState = new Map([
+		['abnormal', '未打卡'],
+		['leave', '请假'],
+		['late', '迟到'],
+		['normal', '已签到'],
+	]);
 	private option = {
 		title : {
-			text: '某站点用户访问来源',
+			text: '学生考勤状态分布',
 			x: 'center',
 		},
 		tooltip : {
@@ -98,21 +105,15 @@ export default class StudentAttendInfo extends Vue {
 		legend: {
 			orient: ('vertical' as 'vertical'),
 			left: 'right',
-			data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
+			data: ['已签到', '请假', '迟到', '未打卡'],
 		},
 		series : [
 			{
-				name: '访问来源',
+				name: '考勤状态',
 				type: ('pie' as 'pie'),
 				radius : '55%',
 				center: ['50%', '60%'],
-				data: [
-					{value: 335, name: '直接访问'},
-					{value: 310, name: '邮件营销'},
-					{value: 234, name: '联盟广告'},
-					{value: 135, name: '视频广告'},
-					{value: 1548, name: '搜索引擎'},
-				],
+				data: [],
 				itemStyle: {
 					emphasis: {
 							shadowBlur: 10,
@@ -123,28 +124,45 @@ export default class StudentAttendInfo extends Vue {
 			},
 		],
 	};
+	public formateOptionData(data: AttendState): Data[] {
+		const temp: Data[] = [];
+		for (const [name, value] of Object.entries(data)) {
+			if (this.attendState.has(name)) {
+				temp.push({value: parseInt(value, 10), name: String(this.attendState.get(name))});
+			}
+		}
+		return temp;
+	}
 	public async getStudentList(valtime ?: string) {
 		const selecttime = valtime || moment().format('YYYY-MM-DD');
 		this.signdate = moment(selecttime).format('YYYY 年 MM 年 DD 日');
 		const query = this.$route.query;
-		const params = {
+		this.params = {
 			...query,
 			selecttime,
 		};
-		const res: Res = await studentAttendInfoList(params);
-		const resState: Res = await attendStateInfo(params);
+		const res: Res = await studentAttendInfoList(this.params);
 		if (res.data !== null) {
 			this.tableData = res.data;
 		}
 	}
-	public showData() {
+	public async showData() {
 		const myChart = this.$echarts.init(this.$refs['container'] as HTMLDivElement);
 		myChart.setOption(this.option);
+		const resState: Res = await attendStateInfo(this.params);
+		const data: Data[] = this.formateOptionData(resState.data[0]);
+		myChart.setOption({
+			series: [{
+				name: '考勤状态',
+				data: data,
+			}],
+		});
 	}
 	public created() {
 		this.getStudentList();
 	}
 	public mounted() {
+		console.log('1');
 		this.$nextTick(() => this.showData());
 	}
 }
