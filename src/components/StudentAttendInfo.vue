@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2020-01-01 17:13:38
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-02 17:48:05
+ * @LastEditTime : 2020-01-03 16:20:45
  -->
 <template>
 	<div style="position:relative;">
@@ -126,6 +126,9 @@ export default class StudentAttendInfo extends Vue {
 	};
 	public formateOptionData(data: AttendState): Data[] {
 		const temp: Data[] = [];
+		if (!data) {
+			return temp;
+		}
 		for (const [name, value] of Object.entries(data)) {
 			if (this.attendState.has(name)) {
 				temp.push({value: parseInt(value, 10), name: String(this.attendState.get(name))});
@@ -145,6 +148,7 @@ export default class StudentAttendInfo extends Vue {
 		if (res.data !== null) {
 			this.tableData = res.data;
 		}
+		this.showData();
 	}
 	public async showData() {
 		const myChart = this.$echarts.init(this.$refs['container'] as HTMLDivElement);
