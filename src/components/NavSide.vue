@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-11 15:23:15
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-30 21:14:18
+ * @LastEditTime : 2020-01-03 16:32:33
  -->
 
 <template>
@@ -26,7 +26,7 @@
 						<el-menu-item :index="'/student/punch-card'">打卡签到</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>
-				<el-submenu index="2">
+				<el-submenu index="2" v-if="!(this.$route.path === '/student/punch-card')">
 					<template slot="title">
 						<i class="el-icon-search"></i>
 						<span>信息查询</span>
