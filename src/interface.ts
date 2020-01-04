@@ -6,7 +6,7 @@ import { InputNumber } from 'element-ui';
  * @Author: Jensen
  * @Date: 2019-12-04 20:09:28
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-02 16:45:21
+ * @LastEditTime : 2020-01-04 15:24:20
  */
 
 export type Func = () => void;
@@ -42,6 +42,7 @@ export interface AttendancePlan {
 	clazzname: string;
 	starttime: string;
 	endtime: string;
+	selecttime ?: string;
 	groupname: string;
 	marktime: string;
 	weekdays ?: number[];
@@ -99,4 +100,17 @@ export interface AttendState {
 export interface Data {
 	value: number;
 	name: string;
+}
+
+export interface IHistoryAttendState {
+	username: string;
+	groupname: string;
+	clazzname: string;
+	total: number;
+	normal: number;
+	leave: number;
+	late: number;
+	abnormal: number;
+	percentage: string;
+	uid: string;
 }

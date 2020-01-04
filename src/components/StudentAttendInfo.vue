@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2020-01-01 17:13:38
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-03 16:20:45
+ * @LastEditTime : 2020-01-03 23:51:12
  -->
 <template>
 	<div style="position:relative;">
@@ -27,6 +27,12 @@
 					@change="getStudentList"
 					placeholder="请选择考勤日期日期">
 				</el-date-picker>
+			</div>
+			<div>
+				<el-link :underline="false" @click="goHistoryState">
+					历史考勤状态
+					<i class="el-icon-d-arrow-right"></i>
+				</el-link>
 			</div>
 		</div>
 		<el-table
@@ -162,11 +168,19 @@ export default class StudentAttendInfo extends Vue {
 			}],
 		});
 	}
+	public goHistoryState() {
+		const query = this.$route.query;
+		this.$router.push({
+			path: '/teacher/history-state',
+			query: {
+				...query,
+			},
+		});
+	}
 	public created() {
 		this.getStudentList();
 	}
 	public mounted() {
-		console.log('1');
 		this.$nextTick(() => this.showData());
 	}
 }
@@ -182,7 +196,7 @@ export default class StudentAttendInfo extends Vue {
 		& > div {
 			height: 70px;
 			line-height: 70px;
-			margin-right: 63px;
+			margin-right: 23px;
 			color: #909399;
 			font-size: 14px;
 			font-weight: bold;

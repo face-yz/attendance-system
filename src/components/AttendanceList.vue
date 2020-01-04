@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-12 20:41:33
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-01 17:55:35
+ * @LastEditTime : 2020-01-03 23:46:52
  -->
 <template>
 	<div>
@@ -249,6 +249,7 @@ export default class AttendanceList extends Vue {
 				clazzname: temp.clazzname,
 				groupname: temp.groupname,
 				starttime: strChange(temp.starttime),
+				endtime: strChange(temp.endtime),
 				days: temp.days,
 				marktime: temp.marktime,
 			},

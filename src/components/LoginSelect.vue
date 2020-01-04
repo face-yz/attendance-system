@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-03 20:30:06
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-30 21:14:37
+ * @LastEditTime : 2020-01-04 17:52:01
  -->
 
 <template>
@@ -16,6 +16,7 @@
 					maxlength="11"
 					v-model="ruleForm.userName"
 					clearable
+					@change="submitForm('ruleForm')"
 					class='input'>
 					<template slot="prepend">
 						<i class='el-icon-user'></i>
@@ -28,6 +29,7 @@
 					class='input'
 					clearable
 					placeholder="密码"
+					@change="submitForm('ruleForm')"
 					show-password>
 					<template slot="prepend">
 						<i class='el-icon-lock'></i>
@@ -41,6 +43,7 @@
 								maxlength="6"
 								class="input"
 								v-model="ruleForm.authCode"
+								@change="submitForm('ruleForm')"
 								clearable
 							/>
 					</el-col>
@@ -56,7 +59,7 @@
 				<el-link @click="change">{{isPhone ? '密码登录' : '手机验证码登录'}}</el-link>
 			</div>
 		</el-form>
-		<el-button type="primary" class="input" @click="login">登录</el-button>
+		<el-button type="primary" class="input" @click="submitForm('ruleForm')">登录</el-button>
 	</div>
 </template>
 
@@ -104,6 +107,7 @@ export default class LoginSelect extends Vue {
 			if (valid) {
 				this.login();
 			} else {
+				console.log('no');
 				return false;
 			}
 		});
