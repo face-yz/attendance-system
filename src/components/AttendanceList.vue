@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-12 20:41:33
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-03 23:46:52
+ * @LastEditTime : 2020-01-05 18:10:36
  -->
 <template>
 	<div>
@@ -12,36 +12,36 @@
 			:data="tableData"
 			border
 			stripe
-			style="width: 1381px">
+			style="width: 1111px">
 			<el-table-column
 				prop="clazzname"
 				label="课程名称"
 				align="center"
-				width="200">
+				width="160">
 			</el-table-column>
 			<el-table-column
 				prop="groupname"
 				label="教室"
 				align="center"
-				width="200">
+				width="140">
 			</el-table-column>
 			<el-table-column
 				prop="starttime"
 				label="开课日期"
 				align="center"
-				width="200">
+				width="160">
 			</el-table-column>
 			<el-table-column
 				prop="endtime"
 				label="结课日期"
 				align="center"
-				width="200">
+				width="160">
 			</el-table-column>
 			<el-table-column
 				prop="days"
 				label="每周上课日期"
 				align="center"
-				width="200">
+				width="180">
 				<template slot-scope="scope">
 					<span v-for="(item, index) in scope.row.week" :key="index">
 						{{ item }}
@@ -52,12 +52,12 @@
 				prop="marktime"
 				label="上课时间"
 				align="center"
-				width="200">
+				width="140">
 			</el-table-column>			
 			<el-table-column
 				label="操作"
 				align="center"
-				width="180">
+				width="170">
 				<template slot-scope="scope">
 					<el-button type="text" @click="handleClick(scope.row)" size="medium">录入学生</el-button>
 					<el-button type="text" @click="goAttend(scope.row)" size="medium">查看考勤</el-button>
@@ -68,7 +68,7 @@
 			:title="'课程：' + classname"
 			:visible.sync="drawer"
 			direction="rtl"
-			size="650px"
+			size="600px"
 			:modal="false"
 			:before-close="handleClose">
 			<el-form

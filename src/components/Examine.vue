@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-12 21:18:58
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-01 16:43:14
+ * @LastEditTime : 2020-01-05 18:05:44
  -->
 <template>
 	<div>
@@ -12,42 +12,42 @@
 			:data="tableData"
 			border
 			stripe
-			style="width: 1941px">
+			style="width: 1761px">
 			<el-table-column
 				prop="uId"
 				label="学号"
 				align="center"
-				width="160">
+				width="140">
 			</el-table-column>
 			<el-table-column
 				prop="username"
 				label="学生姓名"
 				align="center"
-				width="160">
+				width="140">
 			</el-table-column>
 			<el-table-column
 				prop="clazzname"
 				label="课程名称"
 				align="center"
-				width="200">
+				width="180">
 			</el-table-column>
 			<el-table-column
 				prop="groupname"
 				label="教室"
 				align="center"
-				width="160">
+				width="140">
 			</el-table-column>
 			<el-table-column
 				prop="marktime"
 				label="上课时间"
 				align="center"
-				width="160">
+				width="140">
 			</el-table-column>
 			<el-table-column
 				prop="days"
 				label="每周上课日期"
 				align="center"
-				width="200">
+				width="180">
 				<template slot-scope="scope">
 					<span v-for="(item, index) in scope.row.week" :key="index">
 						{{ item }}
@@ -58,19 +58,19 @@
 				prop="startt"
 				label="请假开始日期"
 				align="center"
-				width="200">
+				width="180">
 			</el-table-column>
 			<el-table-column
 				prop="endt"
 				label="请假截止日期"
 				align="center"
-				width="200">
+				width="180">
 			</el-table-column>
 			<el-table-column
 				prop="userreason"
 				label="请假事由"
 				align="center"
-				width="260">
+				width="240">
 			</el-table-column>
 			<el-table-column
 				prop="state"

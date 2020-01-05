@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-09-15 21:59:05
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-05 16:50:33
+ * @LastEditTime : 2020-01-05 18:01:55
  -->
 
 <template>
@@ -67,9 +67,11 @@ export default class Home extends Vue {
 	public loginOrOut() {
 		if (localStorage.getItem('as_token')) {
 			this.show = true;
-			localStorage.getItem('auth') === 'student'
-			? this.$router.replace('/student/look-attendance')
-			: this.$router.replace('/teacher/attendance-list');
+			if (this.$route.path === '/student' || this.$route.path === '/teacher') {
+				localStorage.getItem('auth') === 'student'
+				? this.$router.replace('/student/look-attendance')
+				: this.$router.replace('/teacher/attendance-list');
+			}
 		}
 		if (sessionStorage.getItem('name') && sessionStorage.getItem('uId')) {
 			const tn = sessionStorage.getItem('name');

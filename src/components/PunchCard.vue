@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-11 15:45:30
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-03 16:28:45
+ * @LastEditTime : 2020-01-05 18:14:50
  -->
 
 <template>
@@ -97,6 +97,7 @@ export default class PunchCard extends Vue {
 	public callCamera() {
 		const self = this;
 		// H5调用电脑摄像头API
+		console.log(navigator);
 		navigator.mediaDevices.getUserMedia({
 			video: true,
 		}).then((success: any) => {

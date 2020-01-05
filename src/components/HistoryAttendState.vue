@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2020-01-03 23:31:34
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-04 21:20:39
+ * @LastEditTime : 2020-01-05 18:09:48
  -->
 <template>
 	<div>
@@ -83,7 +83,7 @@
 		</el-table>
 		<el-drawer
 			:visible.sync="drawer"
-			size="650px"
+			size="600px"
 			:modal="false"
 			direction="rtl">
 			<div ref="container" style="width: 500px;height:500px;"></div>
@@ -168,7 +168,7 @@ export default class HistoryAttendState extends Vue {
 			tempObj['late'] += late;
 		});
 		for (const [name, value] of Object.entries(tempObj)) {
-			temp.push({value: value * length, name: String(this.attendState.get(name))});
+			temp.push({value, name: String(this.attendState.get(name))});
 		}
 		return temp;
 	}
