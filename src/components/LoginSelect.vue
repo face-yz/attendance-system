@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-03 20:30:06
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-04 17:52:01
+ * @LastEditTime : 2020-01-05 16:53:50
  -->
 
 <template>
@@ -16,7 +16,6 @@
 					maxlength="11"
 					v-model="ruleForm.userName"
 					clearable
-					@change="submitForm('ruleForm')"
 					class='input'>
 					<template slot="prepend">
 						<i class='el-icon-user'></i>
@@ -29,7 +28,6 @@
 					class='input'
 					clearable
 					placeholder="密码"
-					@change="submitForm('ruleForm')"
 					show-password>
 					<template slot="prepend">
 						<i class='el-icon-lock'></i>
@@ -43,7 +41,6 @@
 								maxlength="6"
 								class="input"
 								v-model="ruleForm.authCode"
-								@change="submitForm('ruleForm')"
 								clearable
 							/>
 					</el-col>

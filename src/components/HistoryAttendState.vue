@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2020-01-03 23:31:34
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-04 17:31:17
+ * @LastEditTime : 2020-01-04 21:20:39
  -->
 <template>
 	<div>
@@ -189,9 +189,6 @@ export default class HistoryAttendState extends Vue {
 	public created() {
 		this.getHistoryStateList();
 	}
-	// public mounted() {
-	// 	this.$nextTick(() => this.showData());
-	// }
 }
 </script>
 
