@@ -4,7 +4,7 @@
  * @Github: https://github.com/Jensen02
  * @Date: 2019-11-28 21:12:06
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-02 17:29:15
+ * @LastEditTime : 2020-01-09 18:46:49
  */
 
 import axios from 'axios';
@@ -13,7 +13,7 @@ import router from '@/router';
 import { Res } from '@/interface';
 // import qs from 'qs';
 
-const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://120.27.246.207:8089' : 'http://120.27.246.207';
+const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://120.27.246.207:8089' : '/';
 
 axios.defaults.timeout = 10000;
 axios.defaults.baseURL = BASE_URL;

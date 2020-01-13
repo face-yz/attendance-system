@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-09-15 21:59:05
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-05 18:01:55
+ * @LastEditTime : 2020-01-09 18:48:18
  -->
 
 <template>
@@ -33,6 +33,7 @@
 							title="退出登录"
 							@click="loginOut"
 						>退出</el-link>
+						<i class="el-icon-setting" @click="() => this.$router.push('/student/personal-information')"></i>
 					</el-col>
 				</el-row>
 			</el-header>

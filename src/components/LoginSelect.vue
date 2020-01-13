@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-03 20:30:06
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-05 16:53:50
+ * @LastEditTime : 2020-01-13 10:33:49
  -->
 
 <template>
@@ -45,7 +45,7 @@
 							/>
 					</el-col>
 					<el-col :span="7">
-						<el-button type="primary" class="input">
+						<el-button type="primary" class="input" @click="loginWithCode">
 							获取验证码
 						</el-button>
 					</el-col>
@@ -63,7 +63,14 @@
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { Form as ElForm } from 'element-ui';
-import { loginWithPassword, loginStudentWithPassword } from '@/http/api';
+import {
+	loginWithPassword,
+	loginStudentWithPassword,
+	loginWithAuthCode,
+	postCodeToCheck,
+	studentLoginWithAuthCode,
+	studentCheckCode,
+} from '@/http/api';
 import { RuleForm, Res } from '@/interface';
 import { setWeekDay } from '../utils/utils';
 
@@ -80,6 +87,7 @@ export default class LoginSelect extends Vue {
 		return this.loginAuth;
 	}
 
+	private code: string = '';
 	private ruleForm: RuleForm = {
 		userName: '',
 		password: '',
@@ -138,29 +146,59 @@ export default class LoginSelect extends Vue {
 	}
 
 	private async login() {
-		let res: Res;
-		if (this.auth === 'teacher') {
+		let res: Res = {
+			code: '',
+			data: [],
+			msg: '',
+		};
+		if (this.isPhone) {
+			const params = {
+				phone: this.ruleForm.userName,
+				code: this.ruleForm.authCode,
+			};
+			res = (this.auth === 'teacher' ? await postCodeToCheck(params) : await studentCheckCode(params));
+		}
+		if (this.auth === 'teacher' && !this.isPhone) {
 			res = await loginWithPassword({
 				username: this.ruleForm.userName,
 				password: this.ruleForm.password,
 			});
-		} else {
+		}
+		if (this.auth === 'student' && !this.isPhone) {
 			res = await loginStudentWithPassword({
 				uId: this.ruleForm.userName,
 				password: this.ruleForm.password,
 			});
 		}
+		console.log('res: ', res);
 		if (parseInt(res.code, 10) === 1) {
-			console.log(res);
 			localStorage.setItem('as_token', res.data[0].token);
 			if (res.data.length === 2) {
 				sessionStorage.setItem('uId', res.data[1].uId);
 				sessionStorage.setItem('name', res.data[1].username);
 			}
-			// this.$store.dispatch('CHANGE_ROLE', {role: this.auth});
 			localStorage.setItem('auth', this.auth);
 			this.$router.replace(`/${this.auth}`);
+		} else {
+			this.$message.error(res.msg);
 		}
+	}
+	private async loginWithCode() {
+		let res: Res = {
+			data: [],
+			code: '',
+			msg: '',
+		};
+		const params = {
+			phone: this.ruleForm.userName,
+		};
+		if (this.auth === 'teacher') {
+			res = await loginWithAuthCode(params);
+		}
+		if (this.auth === 'student') {
+			res = await studentLoginWithAuthCode(params);
+		}
+		parseInt(res.code, 10) === 1 ? this.$message.success(res.msg) : this.$message.error(res.msg);
 	}
 }
 </script>

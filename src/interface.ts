@@ -6,7 +6,7 @@ import { InputNumber } from 'element-ui';
  * @Author: Jensen
  * @Date: 2019-12-04 20:09:28
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-04 15:24:20
+ * @LastEditTime : 2020-01-05 20:19:32
  */
 
 export type Func = () => void;
@@ -35,7 +35,6 @@ export interface StudentInfo {
 	username: string;
 	password ?: string;
 	uId: string;
-	phone: string;
 }
 
 export interface AttendancePlan {

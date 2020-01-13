@@ -4,7 +4,7 @@
  * @Github: https://github.com/Jensen02
  * @Date: 2019-11-28 21:21:04
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-03 23:43:53
+ * @LastEditTime : 2020-01-09 17:25:53
  */
 import Vue from 'vue';
 import Router, { Route, RouteConfig } from 'vue-router';
@@ -78,6 +78,15 @@ const router = new Router({
 					path: 'leave-record',
 					name: 'leave-record',
 					component: () => import('@/components/LeaveRecord.vue'),
+					meta: {
+						requireAuth: true,
+						roles: ['student'],
+					},
+				},
+				{
+					path: 'personal-information',
+					name: 'personal-information',
+					component: () => import('@/components/PersonalInfo.vue'),
 					meta: {
 						requireAuth: true,
 						roles: ['student'],

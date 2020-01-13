@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-12 18:09:27
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-01 16:42:24
+ * @LastEditTime : 2020-01-05 20:19:07
  -->
 
 <template>
@@ -39,7 +39,6 @@ export default class AddStudent extends Vue {
 		username: '',
 		password: '111111',
 		uId: '',
-		phone: '13289237030',
 	};
 
 	private rules: any = {

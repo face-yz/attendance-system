@@ -4,7 +4,7 @@
  * @Github: https://github.com/Jensen02
  * @Date: 2019-11-28 21:12:14
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-04 15:29:46
+ * @LastEditTime : 2020-01-13 10:22:54
  */
 import { httpGet, httpPost, uploadPost } from '@/http/http';
 import {
@@ -24,15 +24,33 @@ export async function loginWithPassword(params: LoginParam): Promise<Res> {
 	return res;
 }
 
-// 老师使用验证码登录
-export async function loginWithAuthCode(params: LoginParam): Promise<Res> {
-	const res: Res = await httpPost('/api/v1', params);
+// 老师使用验证码登录(发送验证码)
+export async function loginWithAuthCode(params: any): Promise<Res> {
+	const res: Res = await httpPost('/api/v1/loginByPhone', params);
+	return res;
+}
+
+// 老师使用验证码登录(验证验证码)
+export async function postCodeToCheck(params: any): Promise<Res> {
+	const res: Res = await httpPost('/api/v1/authByPhoneCode', params);
 	return res;
 }
 
 // 学生使用密码登录
 export async function loginStudentWithPassword(params: LoginParam): Promise<Res> {
 	const res: Res = await httpPost('/api/v1/userLogin', params);
+	return res;
+}
+
+// 学生使用验证码登录(发送验证码)
+export async function studentLoginWithAuthCode(params: any): Promise<Res> {
+	const res: Res = await httpPost('/api/v1/userLoginByPhone', params);
+	return res;
+}
+
+// 学生使用验证码登录(验证验证码)
+export async function studentCheckCode(params: any): Promise<Res> {
+	const res: Res = await httpPost('/api/v1/userAuthByPhoneCode', params);
 	return res;
 }
 
@@ -158,5 +176,19 @@ export async function photoPunch(params: any): Promise<Res> {
 
 export async function punchCard(params: any): Promise<Res> {
 	const res: Res = await httpPost('/api/v1/updateUserSign', params);
+	return res;
+}
+
+/************* 个人信息管理(学生端) **************/
+
+// 绑定个人手机号码---发送验证码
+export async function bindPhone(params: any): Promise<Res> {
+	const res: Res = await httpPost('/api/v1/updatePhone', params);
+	return res;
+}
+
+// 绑定个人手机号码---验证验证码是否正确
+export async function checkCodeAndBind(params: any): Promise<Res> {
+	const res: Res = await httpPost('/api/v1/authUpdatePhone', params);
 	return res;
 }
