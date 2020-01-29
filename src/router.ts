@@ -4,7 +4,7 @@
  * @Github: https://github.com/Jensen02
  * @Date: 2019-11-28 21:21:04
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-09 17:25:53
+ * @LastEditTime : 2020-01-29 15:23:02
  */
 import Vue from 'vue';
 import Router, { Route, RouteConfig } from 'vue-router';
@@ -29,7 +29,7 @@ const path: string = store.state.role;
 // ];
 
 const router = new Router({
-	mode: 'history',
+	mode: process.env.NODE_ENV === 'development' ? 'history' : 'hash',
 	base: process.env.BASE_URL,
 	routes: [
 		{
