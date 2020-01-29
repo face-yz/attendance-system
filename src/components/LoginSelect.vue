@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2019-12-03 20:30:06
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-01-13 10:33:49
+ * @LastEditTime : 2020-01-28 23:25:53
  -->
 
 <template>
@@ -170,7 +170,6 @@ export default class LoginSelect extends Vue {
 				password: this.ruleForm.password,
 			});
 		}
-		console.log('res: ', res);
 		if (parseInt(res.code, 10) === 1) {
 			localStorage.setItem('as_token', res.data[0].token);
 			if (res.data.length === 2) {
@@ -205,10 +204,10 @@ export default class LoginSelect extends Vue {
 
 <style lang="less" scoped>
 	.login {
-		width: 360px;
-		padding: 20px;
+		// width: 360px;
+		// padding: 20px;
 		margin: 0 auto;
-		border: 1px solid antiquewhite;
+		// border: 1px solid antiquewhite;
 	}
 	.el-icon-user:before {
 		display: block;

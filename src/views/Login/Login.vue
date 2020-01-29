@@ -4,11 +4,11 @@
  * @Author: Jensen
  * @Date: 2019-12-03 20:30:06
  * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2019-12-31 14:28:09
+ * @LastEditTime : 2020-01-28 23:17:41
  -->
 
 <template>
-	<div>
+	<div class="login-bg">
 		<el-tabs v-model="activeName" stretch>
 			<el-tab-pane label="管理员登录" name="teacher">
 				<!-- 老师登录 -->
@@ -44,6 +44,14 @@ export default class Login extends Vue {
 </script>>
 
 <style lang="less" scoped>
+	.login-bg {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		background-image: url('../../static/img/login1.jpg');
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
 	.el-tabs {
 		width: 402px;
 		margin: 100px auto;
